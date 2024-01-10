@@ -1,10 +1,12 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
-import counterReducer from '../features/counter/counterSlice';
+import { apiQuery } from "../services/apiQuery";
 
 export const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    [apiQuery.reducerPath]: apiQuery.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(apiQuery.middleware),
 });
 
 export type AppDispatch = typeof store.dispatch;
