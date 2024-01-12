@@ -1,14 +1,16 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
-import { TransactionsContent, TransactionsParams } from "./apiTransaction";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { baseUrl } from '../config';
+import { TransactionsContent, TransactionsParams } from './apiTransaction';
 
 export const apiQuery = createApi({
   reducerPath: 'apiQuery',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://apilist.tronscanapi.com/api/' }),
+  baseQuery: fetchBaseQuery({ baseUrl }),
   endpoints: (builder) => ({
     getTransactions: builder.query<TransactionsContent, TransactionsParams>({
-      query: (params) => `transaction?sort=-timestamp&limit=${params.limit}&start=${params.start}`,
+      query: (params) =>
+        `transaction?sort=-timestamp&limit=${params.limit}&start=${params.start}`,
     }),
   }),
-})
+});
 
-export const { useGetTransactionsQuery } = apiQuery
+export const { useGetTransactionsQuery } = apiQuery;
